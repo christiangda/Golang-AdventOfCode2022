@@ -1,6 +1,6 @@
 # AdventOfCode2022
 
-Golang Implementation of Advent of Code 2022 (https://adventofcode.com/2022)
+Golang Implementation of Advent of Code 2022 [https://adventofcode.com/2022](https://adventofcode.com/2022)
 
 ## Usage
 
@@ -20,18 +20,40 @@ go test ./...
 
 Remember that each puzzle has its own input file, so you need to specify it as a parameter.
 
-Using mine input file:
+Using my input file:
 
 ```bash
 go run day_01/puzzle_01/main.go -input day_01/puzzle_01/input.txt
+```
+
+Output:
+
+```text
+Total Elves: 266
+Total Calories: 11900800
+Elf with most Calories: Elf 6, Calories: 69281
 ```
 
 #### Puzzle 02
 
 Remember that each puzzle has its own input file, so you need to specify it as a parameter.
 
-Using mine input file:
+Using my input file:
 
 ```bash
 go run day_01/puzzle_02/main.go -input day_01/puzzle_02/input.txt
+```
+
+Output:
+
+```text
+Total Elves: 266
+Total Calories: 11900800
+
+Top Three Elf most Calories:
+-> Name: Elf 6, Calories: 69281
+-> Name: Elf 154, Calories: 67653
+-> Name: Elf 180, Calories: 64590
+
+Total carrying calories (Top Three Elf): 201524
 ```
