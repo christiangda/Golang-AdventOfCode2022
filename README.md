@@ -79,3 +79,23 @@ Output:
 Number of rounds: 2500
 Total score according to my strategy: 11666
 ```
+
+#### Puzzle 02
+
+Remember that each puzzle has its own input file, so you need to specify it as a parameter.
+
+Using my input file:
+
+```bash
+go run day_02/puzzle_02/main.go -input day_02/puzzle_02/input.txt
+
+# or with debug mode
+go run day_02/puzzle_02/main.go -input day_02/puzzle_02/input.txt -debug
+```
+
+Output:
+
+```text
+Number of rounds: 2500
+Total score according to my strategy: 12767
+```
