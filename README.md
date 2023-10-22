@@ -57,3 +57,25 @@ Top Three Elf most Calories:
 
 Total carrying calories (Top Three Elf): 201524
 ```
+
+### Day 02
+
+#### Puzzle 01
+
+Remember that each puzzle has its own input file, so you need to specify it as a parameter.
+
+Using my input file:
+
+```bash
+go run day_02/puzzle_01/main.go -input day_02/puzzle_01/input.txt
+
+# or with debug mode
+go run day_02/puzzle_01/main.go -input day_02/puzzle_01/input.txt -debug
+```
+
+Output:
+
+```text
+Number of rounds: 2500
+Total score according to my strategy: 11666
+```
