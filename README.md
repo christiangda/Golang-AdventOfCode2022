@@ -99,3 +99,25 @@ Output:
 Number of rounds: 2500
 Total score according to my strategy: 12767
 ```
+
+### Day 03
+
+#### Puzzle 01
+
+Remember that each puzzle has its own input file, so you need to specify it as a parameter.
+
+Using my input file:
+
+```bash
+go run day_03/puzzle_01/main.go -input day_03/puzzle_01/input.txt
+
+# or with debug mode
+go run day_03/puzzle_01/main.go -input day_03/puzzle_01/input.txt -debug
+```
+
+Output:
+
+```text
+Number of repeated Items: 300
+Sum of the priorities: 8185
+```
