@@ -113,6 +113,7 @@ go run day_03/puzzle_01/main.go -input day_03/puzzle_01/input.txt
 
 # or with debug mode
 go run day_03/puzzle_01/main.go -input day_03/puzzle_01/input.txt -debug
+go run day_03/puzzle_01/main.go -input day_03/puzzle_01/input_test.txt -debug
 ```
 
 Output:
@@ -120,4 +121,25 @@ Output:
 ```text
 Number of repeated Items: 300
 Sum of the priorities: 8185
+```
+
+#### Puzzle 02
+
+Remember that each puzzle has its own input file, so you need to specify it as a parameter.
+
+Using my input file:
+
+```bash
+go run day_03/puzzle_02/main.go -input day_03/puzzle_02/input.txt
+
+# or with debug mode
+go run day_03/puzzle_02/main.go -input day_03/puzzle_02/input.txt -debug
+go run day_03/puzzle_02/main.go -input day_03/puzzle_02/input_test.txt -debug
+```
+
+Output:
+
+```text
+Number of repeated Items: 100
+Sum of the priorities: 2817
 ```
