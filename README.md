@@ -167,3 +167,25 @@ Number of pairs of sections checked: 1000
 Number of sections checked: 2000
 Number of assignment pairs that one range fully contain the other: 569
 ```
+
+#### Puzzle 02
+
+Remember that each puzzle has its own input file, so you need to specify it as a parameter.
+
+Using my input file:
+
+```bash
+go run day_04/puzzle_02/main.go -input day_04/puzzle_02/input.txt
+
+# or with debug mode
+go run day_04/puzzle_02/main.go -input day_04/puzzle_02/input.txt -debug
+go run day_04/puzzle_02/main.go -input day_04/puzzle_02/input_test.txt -debug
+```
+
+Output:
+
+```text
+Number of pairs of sections checked: 1000
+Number of sections checked: 2000
+Number of pairs that the ranges overlap: 936
+```
