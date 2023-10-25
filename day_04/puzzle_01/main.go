@@ -89,7 +89,9 @@ func main() {
 			fmt.Printf("Error returned from function, err: %v", err)
 		}
 
-		fmt.Printf("sections 1: %v, 2: %v, are contained?: %v\n", sections[0], sections[1], ok)
+		if debug {
+			fmt.Printf("sections 1: %v, 2: %v, are contained?: %v\n", sections[0], sections[1], ok)
+		}
 
 		if ok {
 			got += 1
