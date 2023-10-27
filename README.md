@@ -189,3 +189,28 @@ Number of pairs of sections checked: 1000
 Number of sections checked: 2000
 Number of pairs that the ranges overlap: 936
 ```
+
+### Day 05
+
+#### Puzzle 01
+
+Remember that each puzzle has its own input file, so you need to specify it as a parameter.
+
+Using my input file:
+
+```bash
+go run day_05/puzzle_01/main.go -input day_05/puzzle_01/input.txt
+
+# or with debug mode
+go run day_05/puzzle_01/main.go -input day_05/puzzle_01/input.txt -debug
+go run day_05/puzzle_01/main.go -input day_05/puzzle_01/input_test.txt -debug
+```
+
+Output:
+
+```text
+Number of crates: 56
+Number of instructions: 502
+Number of stacks: 9
+Which crate will end up on top of each stack: FCVRLMVQP
+```
