@@ -237,3 +237,27 @@ Number of instructions: 502
 Number of queues: 9
 Which crate will end up on top of each queue: RWLWGJGFD
 ```
+
+### Day 06
+
+#### Puzzle 01
+
+Remember that each puzzle has its own input file, so you need to specify it as a parameter.
+
+Using my input file:
+
+```bash
+go run day_06/puzzle_01/main.go -input day_06/puzzle_01/input.txt
+
+# or with debug mode
+go run day_06/puzzle_01/main.go -input day_06/puzzle_01/input.txt -debug
+go run day_06/puzzle_01/main.go -input day_06/puzzle_01/input_test.txt -debug
+```
+
+Output:
+
+```text
+Numbers of lines processed: 1
+Line number: 1
+Characters that need to be processed before the first start-of-packet marker is detected: 1655
+```
