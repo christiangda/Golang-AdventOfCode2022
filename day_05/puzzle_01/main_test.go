@@ -181,7 +181,7 @@ move 1 from 1 to 2
 	t.Logf("\n\nInstructions -> %v\n\n", instructions)
 
 	if len(crates) != 6 {
-		t.Errorf("Expected: %v, got:%v", 3, len(crates))
+		t.Errorf("Expected: %v, got:%v", 6, len(crates))
 	}
 
 	if len(instructions) != 4 {
