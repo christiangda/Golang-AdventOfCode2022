@@ -261,3 +261,25 @@ Numbers of lines processed: 1
 Line number: 1
 Characters that need to be processed before the first start-of-packet marker is detected: 1655
 ```
+
+#### Puzzle 02
+
+Remember that each puzzle has its own input file, so you need to specify it as a parameter.
+
+Using my input file:
+
+```bash
+go run day_06/puzzle_02/main.go -input day_06/puzzle_02/input.txt
+
+# or with debug mode
+go run day_06/puzzle_02/main.go -input day_06/puzzle_02/input.txt -debug
+go run day_06/puzzle_02/main.go -input day_06/puzzle_02/input_test.txt -debug
+```
+
+Output:
+
+```text
+Numbers of lines processed: 1
+Line number: 1
+Characters that need to be processed before the first start-of-packet marker is detected: 2665
+```
