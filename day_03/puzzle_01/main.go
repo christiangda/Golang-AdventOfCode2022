@@ -43,7 +43,7 @@ var (
 )
 
 func init() {
-	flag.StringVar(&input, "input", "input.txt", "input: a file path with the content of your https://adventofcode.com/2022/day/1/input")
+	flag.StringVar(&input, "input", "input.txt", "input: a file path with the content of your https://adventofcode.com/2022/day/3/input")
 	flag.BoolVar(&debug, "debug", false, "debug (default: false)")
 }
 
