@@ -214,3 +214,26 @@ Number of instructions: 502
 Number of stacks: 9
 Which crate will end up on top of each stack: FCVRLMVQP
 ```
+
+#### Puzzle 02
+
+Remember that each puzzle has its own input file, so you need to specify it as a parameter.
+
+Using my input file:
+
+```bash
+go run day_05/puzzle_02/main.go -input day_05/puzzle_02/input.txt
+
+# or with debug mode
+go run day_05/puzzle_02/main.go -input day_05/puzzle_02/input.txt -debug
+go run day_05/puzzle_02/main.go -input day_05/puzzle_02/input_test.txt -debug
+```
+
+Output:
+
+```text
+Number of crates: 56
+Number of instructions: 502
+Number of queues: 9
+Which crate will end up on top of each queue: RWLWGJGFD
+```
