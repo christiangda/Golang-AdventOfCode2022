@@ -63,8 +63,8 @@ func TestPlays(t *testing.T) {
 
 		got := p1.PlayWith(p2)
 
-		if got != Lost+p1.Value() {
-			t.Fatalf("Expected Lost, got %v", got)
+		if got != Won+p2.Value() {
+			t.Fatalf("Expected Won, got %v", got)
 		}
 	})
 
@@ -74,8 +74,8 @@ func TestPlays(t *testing.T) {
 
 		got := p1.PlayWith(p2)
 
-		if got != Won+p1.Value() {
-			t.Fatalf("Expected Won, got %v", got)
+		if got != Lost+p2.Value() {
+			t.Fatalf("Expected Lost, got %v", got)
 		}
 	})
 
@@ -86,8 +86,8 @@ func TestPlays(t *testing.T) {
 
 		got := p1.PlayWith(p2)
 
-		if got != Won+p1.Value() {
-			t.Fatalf("Expected Draw, got %v", got)
+		if got != Lost+p2.Value() {
+			t.Fatalf("Expected Lost, got %v", got)
 		}
 	})
 
@@ -97,8 +97,8 @@ func TestPlays(t *testing.T) {
 
 		got := p1.PlayWith(p2)
 
-		if got != Draw+p1.Value() {
-			t.Fatalf("Expected Lost, got %v", got)
+		if got != Draw+p2.Value() {
+			t.Fatalf("Expected Draw, got %v", got)
 		}
 	})
 
@@ -108,7 +108,7 @@ func TestPlays(t *testing.T) {
 
 		got := p1.PlayWith(p2)
 
-		if got != Lost+p1.Value() {
+		if got != Won+p2.Value() {
 			t.Fatalf("Expected Won, got %v", got)
 		}
 	})
