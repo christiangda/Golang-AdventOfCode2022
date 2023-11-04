@@ -1,0 +1,32 @@
+$ cd /
+$ ls
+dir a
+1 b.txt
+1 c.dat
+dir d
+$ cd a
+$ ls
+dir e
+1 f
+1 g
+1 h.lst
+$ cd e
+$ ls
+dir m
+1 i
+1 j
+1 k
+$ cd m
+$ ls
+1 g
+1 h
+1 k
+$ cd ..
+$ cd ..
+$ cd ..
+$ cd d
+$ ls
+4060174 j
+8033020 d.log
+5626152 d.ext
+7214296 k
