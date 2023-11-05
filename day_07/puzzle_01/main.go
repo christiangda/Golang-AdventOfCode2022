@@ -62,113 +62,100 @@ func ParseLine(s string) *Element {
 	return nil
 }
 
-func BuildTree(rc *bufio.Scanner, root *tree.Node) {
-	// var currentNode *tree.Node
-	stack := stack.New[*tree.Node]()
+func BuildTree(stack *stack.Stack[*tree.Node], root *tree.Node, value *Element) {
+	switch value.Kind {
+	case tree.Command:
 
-	for rc.Scan() {
-		line := rc.Text()
+		// change directory
+		if value.Content == "cd" {
 
-		value := ParseLine(line)
-		if value == nil {
-			// cannot be parser, jump
-			continue
+			if value.Argument == "/" {
+				root.Name = value.Argument
+				root.Kind = tree.Dir
+
+				// first node in the stack
+				stack.Push(root)
+
+				if debug {
+					fmt.Printf("  creating node: %v\n", root.Name)
+				}
+			}
+
+			if value.Argument == ".." {
+				n := stack.Pop()
+
+				if debug {
+					fmt.Printf("  leaving the node: %v\n", n.Name)
+
+					c := stack.Peek()
+					fmt.Printf("  current node: %v\n", c.Name)
+				}
+
+				break
+			}
+
+			if value.Argument != "/" && value.Argument != ".." {
+				currentNode := stack.Peek()
+
+				n := currentNode.FindChild(value.Argument, tree.Dir)
+				stack.Push(n)
+
+				if debug {
+					fmt.Printf("  creating node: %v\n", n.Name)
+				}
+
+			}
 		}
 
-		switch value.Kind {
-		case tree.Command:
+		// list
+		if value.Content == "ls" {
+			// nothing to do
+			break
+		}
 
-			// change directory
-			if value.Content == "cd" {
+	case tree.Dir:
+		currentNode := stack.Peek()
+		n := &tree.Node{
+			Name: value.Argument,
+			Kind: tree.Dir,
+		}
 
-				if value.Argument == "/" {
-					root.Name = value.Argument
-					root.Kind = tree.Dir
+		if currentNode.Children == nil {
+			// first child
+			currentNode.Children = []*tree.Node{n}
+		} else {
+			// append child
+			currentNode.Children = append(currentNode.Children, n)
+		}
 
-					// first node in the stack
-					stack.Push(root)
+		if debug {
+			fmt.Printf("    adding dir: %v -> node: %v\n", n.Name, currentNode.Name)
+		}
 
-					if debug {
-						fmt.Printf("  creating node: %v\n", root.Name)
-					}
-				}
+	case tree.File:
+		size, err := strconv.Atoi(value.Argument)
+		if err != nil {
+			// ignore
+			break
+		}
 
-				if value.Argument == ".." {
-					n := stack.Pop()
+		currentNode := stack.Peek()
+		n := &tree.Node{
+			Name: value.Content,
+			Size: size,
+			Kind: tree.File,
+		}
 
-					if debug {
-						fmt.Printf("  leaving the node: %v\n", n.Name)
+		if currentNode.Children == nil {
+			// first child
+			currentNode.Children = []*tree.Node{n}
+		} else {
+			// append child
+			currentNode.Children = append(currentNode.Children, n)
+		}
 
-						c := stack.Peek()
-						fmt.Printf("  current node: %v\n", c.Name)
-					}
-
-					continue
-				}
-
-				if value.Argument != "/" && value.Argument != ".." {
-					currentNode := stack.Peek()
-
-					n := currentNode.FindChild(value.Argument, tree.Dir)
-					stack.Push(n)
-
-					if debug {
-						fmt.Printf("  creating node: %v\n", n.Name)
-					}
-
-				}
-			}
-
-			// list
-			if value.Content == "ls" {
-				// nothing to do
-				continue
-			}
-
-		case tree.Dir:
-			currentNode := stack.Peek()
-			n := &tree.Node{
-				Name: value.Argument,
-				Kind: tree.Dir,
-			}
-
-			if currentNode.Children == nil {
-				// first child
-				currentNode.Children = []*tree.Node{n}
-			} else {
-				// append child
-				currentNode.Children = append(currentNode.Children, n)
-			}
-
-			if debug {
-				fmt.Printf("    adding dir: %v -> node: %v\n", n.Name, currentNode.Name)
-			}
-
-		case tree.File:
-			size, err := strconv.Atoi(value.Argument)
-			if err != nil {
-				// ignore
-				continue
-			}
-
-			currentNode := stack.Peek()
-			n := &tree.Node{
-				Name: value.Content,
-				Size: size,
-				Kind: tree.File,
-			}
-
-			if currentNode.Children == nil {
-				// first child
-				currentNode.Children = []*tree.Node{n}
-			} else {
-				// append child
-				currentNode.Children = append(currentNode.Children, n)
-			}
-
-			if debug {
-				fmt.Printf("    adding file: %v -> node: %v\n", n.Name, currentNode.Name)
-			}
+		if debug {
+			fmt.Printf("    adding file: %v -> node: %v\n", n.Name, currentNode.Name)
 		}
 	}
 }
@@ -196,8 +183,19 @@ func main() {
 
 	root := &tree.Node{}
 
+	stack := stack.New[*tree.Node]()
 	rc := bufio.NewScanner(file)
-	BuildTree(rc, root)
+
+	for rc.Scan() {
+		line := rc.Text()
+
+		value := ParseLine(line)
+		if value == nil {
+			// cannot be parser, jump
+			continue
+		}
+		BuildTree(stack, root, value)
+	}
 
 	root.UpdateNodesDirSize()
 	gotSize := root.GetSumOfSize(maxSize)

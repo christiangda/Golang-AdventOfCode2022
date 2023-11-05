@@ -5,6 +5,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/christiangda/Golang-AdventOfCode2022/day_07/puzzle_01/stack"
 	"github.com/christiangda/Golang-AdventOfCode2022/day_07/puzzle_01/tree"
 )
 
@@ -36,7 +37,18 @@ $ ls
 	root := &tree.Node{}
 
 	rc := bufio.NewScanner(strings.NewReader(input))
-	BuildTree(rc, root)
+	stack := stack.New[*tree.Node]()
+
+	for rc.Scan() {
+		line := rc.Text()
+
+		value := ParseLine(line)
+		if value == nil {
+			// cannot be parser, jump
+			continue
+		}
+		BuildTree(stack, root, value)
+	}
 
 	gotSize := root.GetSumOfFilesSize()
 
@@ -82,9 +94,20 @@ $ ls
 7214296 k`
 
 	root := &tree.Node{}
-	rc := bufio.NewScanner(strings.NewReader(input))
 
-	BuildTree(rc, root)
+	rc := bufio.NewScanner(strings.NewReader(input))
+	stack := stack.New[*tree.Node]()
+
+	for rc.Scan() {
+		line := rc.Text()
+
+		value := ParseLine(line)
+		if value == nil {
+			// cannot be parser, jump
+			continue
+		}
+		BuildTree(stack, root, value)
+	}
 
 	root.UpdateNodesDirSize()
 	gotSize := root.Size
@@ -125,7 +148,18 @@ $ ls
 	root := &tree.Node{}
 
 	rc := bufio.NewScanner(strings.NewReader(input))
-	BuildTree(rc, root)
+	stack := stack.New[*tree.Node]()
+
+	for rc.Scan() {
+		line := rc.Text()
+
+		value := ParseLine(line)
+		if value == nil {
+			// cannot be parser, jump
+			continue
+		}
+		BuildTree(stack, root, value)
+	}
 
 	root.UpdateNodesDirSize()
 	gotSize := root.GetSumOfSize(100000)
