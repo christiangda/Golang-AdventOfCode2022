@@ -333,3 +333,32 @@ Needed space to be free (at least): 913445
 What is the Node in the tree selected?: lfrctthp
 What is the total size of that directory?: 942298
 ```
+
+### Day 08
+
+#### Puzzle 01
+
+Remember that each puzzle has its own input file, so you need to specify it as a parameter.
+
+Using my input file:
+
+```bash
+go run day_08/puzzle_01/main.go -input day_08/puzzle_01/input.txt
+
+# or with debug mode
+go run day_08/puzzle_01/main.go -input day_08/puzzle_01/input.txt -debug
+go run day_08/puzzle_01/main.go -input day_08/puzzle_01/input_test.txt -debug
+```
+
+Output:
+
+```text
+Number of rows: 99
+Number of cols: 99
+Number of trees: 9801
+
+Number of visible trees inside: 1151
+Number of visible trees outside: 392
+
+how many trees are visible from outside the grid?: 1543
+```
