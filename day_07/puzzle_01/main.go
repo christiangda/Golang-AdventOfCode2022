@@ -161,7 +161,7 @@ func BuildTree(stack *stack.Stack[*tree.Node], root *tree.Node, value *Element) 
 }
 
 func init() {
-	flag.StringVar(&input, "input", "input.txt", "input: a file path with the content of your https://adventofcode.com/2022/day/6/input")
+	flag.StringVar(&input, "input", "input.txt", "input: a file path with the content of your https://adventofcode.com/2022/day/7/input")
 	flag.IntVar(&maxSize, "maxSize", 100000, "Maximum size of directories to retrieve")
 	flag.BoolVar(&debug, "debug", false, "debug (default: false)")
 }
