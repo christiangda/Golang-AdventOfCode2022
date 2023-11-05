@@ -305,3 +305,31 @@ Output:
 ```text
 What is the sum of the total sizes of those directories?: 1443806
 ```
+
+#### Puzzle 02
+
+Remember that each puzzle has its own input file, so you need to specify it as a parameter.
+
+Using my input file:
+
+```bash
+go run day_07/puzzle_02/main.go -input day_07/puzzle_02/input.txt
+
+# or with debug mode
+go run day_07/puzzle_02/main.go -input day_07/puzzle_02/input.txt -debug
+go run day_07/puzzle_02/main.go -input day_07/puzzle_02/input_test.txt -debug
+```
+
+Output:
+
+```text
+The total disk space available to the filesystem: 70000000
+Used in / (root): 40913445
+Size Available: 29086555
+Update needed space size: 30000000
+
+Needed space to be free (at least): 913445
+
+What is the Node in the tree selected?: lfrctthp
+What is the total size of that directory?: 942298
+```
