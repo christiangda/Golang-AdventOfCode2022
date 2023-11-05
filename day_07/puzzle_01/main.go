@@ -108,12 +108,14 @@ func BuildTree(rc *bufio.Scanner, root *tree.Node) {
 
 				if value.Argument != "/" && value.Argument != ".." {
 					currentNode := stack.Peek()
-					n := currentNode.FindByName(value.Argument, tree.Dir)
+
+					n := currentNode.FindChild(value.Argument, tree.Dir)
 					stack.Push(n)
 
 					if debug {
 						fmt.Printf("  creating node: %v\n", n.Name)
 					}
+
 				}
 			}
 
@@ -124,12 +126,11 @@ func BuildTree(rc *bufio.Scanner, root *tree.Node) {
 			}
 
 		case tree.Dir:
+			currentNode := stack.Peek()
 			n := &tree.Node{
 				Name: value.Argument,
 				Kind: tree.Dir,
 			}
-
-			currentNode := stack.Peek()
 
 			if currentNode.Children == nil {
 				// first child
@@ -150,13 +151,12 @@ func BuildTree(rc *bufio.Scanner, root *tree.Node) {
 				continue
 			}
 
+			currentNode := stack.Peek()
 			n := &tree.Node{
 				Name: value.Content,
 				Size: size,
 				Kind: tree.File,
 			}
-
-			currentNode := stack.Peek()
 
 			if currentNode.Children == nil {
 				// first child
