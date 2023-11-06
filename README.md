@@ -362,3 +362,27 @@ Number of visible trees outside: 392
 
 how many trees are visible from outside the grid?: 1543
 ```
+
+#### Puzzle 02
+
+Remember that each puzzle has its own input file, so you need to specify it as a parameter.
+
+Using my input file:
+
+```bash
+go run day_08/puzzle_02/main.go -input day_08/puzzle_02/input.txt
+
+# or with debug mode
+go run day_08/puzzle_02/main.go -input day_08/puzzle_02/input.txt -debug
+go run day_08/puzzle_02/main.go -input day_08/puzzle_02/input_test.txt -debug
+```
+
+Output:
+
+```text
+Number of rows: 99
+Number of cols: 99
+Number of trees: 9801
+
+What is the highest scenic score possible for any tree?: 595080
+```
