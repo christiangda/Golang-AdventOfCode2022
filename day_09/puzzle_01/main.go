@@ -73,6 +73,7 @@ const (
 type Knot struct {
 	Label     string
 	position  [2]int
+	previous  [2]int
 	movements int
 
 	direction string
@@ -106,6 +107,8 @@ func (k *Knot) MoveLeft(steps int) {
 
 func (k *Knot) Move(direction string, steps int) {
 	k.direction = direction
+	k.previous[X] = k.position[X]
+	k.previous[Y] = k.position[Y]
 
 	switch direction {
 	case Up:
@@ -118,6 +121,12 @@ func (k *Knot) Move(direction string, steps int) {
 		k.MoveLeft(steps)
 	default:
 		fmt.Printf("unknown direction: %v\n", direction)
+	}
+
+	visited := Visited(k.position, direction, k.steps)
+
+	for _, v := range visited {
+		k.visited[v] = true
 	}
 }
 
@@ -134,87 +143,109 @@ func NewRope(Head, Tail *Knot) *Rope {
 }
 
 func (r *Rope) Move(direction string, steps int) {
+	// the head is moved to the desired position
 	r.head.Move(direction, steps)
 
+	// then the tail position needs to be calculated
+
+	// Delta independent of the position of the head and the tail
+	dy := Abs(Abs(r.head.position[Y]) - Abs(r.tail.position[Y]))
+	dx := Abs(Abs(r.head.position[X]) - Abs(r.tail.position[X]))
+	r.tail.direction = direction
+
+	// let's move the tail
 	switch direction {
 	case Up:
-		// steps moved
-		dy := Abs(r.head.position[Y] - r.tail.position[Y])
-		if dy >= 1 {
-			r.tail.steps = dy - 1
-		}
-		r.tail.movements += r.tail.steps
-
-		// tail position
 		if dy > 1 {
-			r.tail.position[X] = r.head.position[X]
-			r.tail.position[Y] = r.head.position[Y] - 1
-		}
+			// translate the position on the axis X of the tail to have
+			// coincidence with the head and then move it
+			if dx > 0 {
+				r.tail.position[X] = r.head.position[X]
+			}
 
-		visited := Visited(r.tail.position, Up, r.tail.steps)
-		for _, v := range visited {
-			r.tail.visited[v] = true
-		}
+			if r.head.previous[Y] >= r.tail.position[Y] {
+				r.tail.MoveUp(steps - 1)
+			} else if r.head.previous[Y] < r.tail.position[Y] {
+				r.tail.MoveUp(steps - 2)
+			}
 
+			// get the visited nodes after the translation of the tail
+			// behind the head and add these to the visited record
+			visited := Visited(r.tail.position, direction, r.tail.steps)
+
+			for _, v := range visited {
+				r.tail.visited[v] = true
+			}
+		}
 	case Down:
-		// steps moved
-		dy := Abs(r.head.position[Y] - r.tail.position[Y])
-		if dy >= 1 {
-			r.tail.steps = dy - 1
-		}
-		r.tail.movements += r.tail.steps
-
-		// tail position
 		if dy > 1 {
-			r.tail.position[X] = r.head.position[X]
-			r.tail.position[Y] = r.head.position[Y] - 1
-		}
+			// translate the position on the axis X of the tail to have
+			// coincidence with the head and then move it
+			if dx > 0 {
+				r.tail.position[X] = r.head.position[X]
+			}
 
-		visited := Visited(r.tail.position, Down, r.tail.steps)
-		for _, v := range visited {
-			r.tail.visited[v] = true
+			if r.head.previous[Y] > r.tail.position[Y] {
+				r.tail.MoveDown(steps - 2)
+			} else if r.head.previous[Y] <= r.tail.position[Y] {
+				r.tail.MoveDown(steps - 1)
+			}
+
+			// get the visited nodes after the translation of the tail
+			// behind the head and add these to the visited record
+			visited := Visited(r.tail.position, direction, r.tail.steps)
+
+			for _, v := range visited {
+				r.tail.visited[v] = true
+			}
 		}
 	case Right:
-		// steps moved
-		dx := Abs(r.head.position[X] - r.tail.position[X])
-		if dx >= 1 {
-			r.tail.steps = dx - 1
-		}
-		r.tail.movements += r.tail.steps
-
-		// tail position
 		if dx > 1 {
-			r.tail.position[X] = r.head.position[X] - 1
-			r.tail.position[Y] = r.head.position[Y]
-		}
+			// translate the position on the axis Y of the tail to have
+			// coincidence with the head and then move it
+			if dy > 0 {
+				r.tail.position[Y] = r.head.position[Y]
+			}
 
-		visited := Visited(r.tail.position, Right, r.tail.steps)
-		for _, v := range visited {
-			r.tail.visited[v] = true
+			if r.head.previous[X] < r.tail.position[X] {
+				r.tail.MoveRight(steps - 2)
+			} else if r.head.previous[X] >= r.tail.position[X] {
+				r.tail.MoveRight(steps - 1)
+			}
+
+			// get the visited nodes after the translation of the tail
+			// behind the head and add these to the visited record
+			visited := Visited(r.tail.position, direction, r.tail.steps)
+
+			for _, v := range visited {
+				r.tail.visited[v] = true
+			}
 		}
 	case Left:
-		// steps moved
-		dx := Abs(r.head.position[X] - r.tail.position[X])
-		if dx >= 1 {
-			r.tail.steps = dx - 1
-		}
-		r.tail.movements += r.tail.steps
-
-		// tail position
 		if dx > 1 {
-			r.tail.position[X] = r.head.position[X] + 1
-			r.tail.position[Y] = r.head.position[Y]
-		}
+			// translate the position on the axis Y of the tail to have
+			// coincidence with the head and then move it
+			if dy > 0 {
+				r.tail.position[Y] = r.head.position[Y]
+			}
 
-		visited := Visited(r.tail.position, Left, r.tail.steps)
-		for _, v := range visited {
-			r.tail.visited[v] = true
+			if r.head.previous[X] > r.tail.position[X] {
+				r.tail.MoveLeft(steps - 2)
+			} else if r.head.previous[X] <= r.tail.position[X] {
+				r.tail.MoveLeft(steps - 1)
+			}
+
+			// get the visited nodes after the translation of the tail
+			// behind the head and add these to the visited record
+			visited := Visited(r.tail.position, direction, r.tail.steps)
+
+			for _, v := range visited {
+				r.tail.visited[v] = true
+			}
 		}
 	default:
 		fmt.Printf("unknown direction: %v\n", direction)
 	}
-
-	r.tail.direction = direction
 }
 
 type KnotMap struct {
@@ -233,9 +264,6 @@ func (km *KnotMap) Render(points map[[2]int]bool) {
 
 	row := (maxY - minY) + 1
 	col := (maxX - minX) + 2
-
-	fmt.Printf("row: %v, col:%v\n", row, col)
-	fmt.Printf("minX: %v, minY: %v, maxX:%v, maxY: %v\n", minX, minY, maxX, maxY)
 
 	km.pos = make([][]rune, row)
 
@@ -348,9 +376,14 @@ func main() {
 	fmt.Printf("Last position of Tail: %v\n", T.position)
 
 	if debug {
-		// fmt.Printf("Positions visited by Tail: %+v\n\n", T.visited)
-
 		m := NewKnotMap()
+		fmt.Printf("\nHead graph\n")
+		fmt.Println("-------------------------------------------------------------------------")
+		m.Render(H.visited)
+		fmt.Println("-------------------------------------------------------------------------")
+
+		m = NewKnotMap()
+		fmt.Printf("\nTail graph\n")
 		fmt.Println("-------------------------------------------------------------------------")
 		m.Render(T.visited)
 		fmt.Println("-------------------------------------------------------------------------")
